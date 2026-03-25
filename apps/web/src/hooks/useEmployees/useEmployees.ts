@@ -25,6 +25,8 @@ interface EmployeesResponse {
   data: Employee[];
 }
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const formatDateQueryParam = (date: Date | null): string | null => {
   if (!date || Number.isNaN(date.getTime())) {
     return null;
@@ -83,7 +85,7 @@ export function useEmployees({ page, pageSize, filters, sorting }: UseEmployeesP
           params.set('sortOrder', primarySort.desc ? 'desc' : 'asc');
         }
 
-        const response = await fetch(`http://localhost:3001/employees?${params.toString()}`, {
+        const response = await fetch(`${apiUrl}/employees?${params.toString()}`, {
           signal: controller.signal,
         });
         if (!response.ok) {
